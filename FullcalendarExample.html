@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- <script src='./node_modules/@fullcalendar/core/locales/es.js'></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+
+    <script>
+
+
+      // reservas.then(reservas => console.log(
+      //   reservas.map(a => a.reserva_date, + "T" + reservas.map(b => b.reserva_time)))) 
+ 
+      // let arr2 = await horas(url2);
+
+
+      let todas_las_horas = [
+    {
+        "c05ada79dbe25": [
+            "09:00:00",
+            "09:30:00",
+            "10:00:00",
+            "10:30:00",
+            "11:00:00",
+            "11:30:00",
+            "12:00:00",
+            "12:30:00",
+            "13:00:00",
+            "13:30:00",
+            "14:30:00",
+            "15:30:00",
+            "16:00:00",
+            "16:30:00",
+            "17:00:00",
+            "17:30:00",
+            "18:00:00",
+            "18:30:00",
+            "19:00:00",
+            "19:30:00",
+            "20:00:00",
+            "20:30:00",
+            "21:00:00"
+        ]
+    },
+    {
+        "bf791a441a922": [
+            "08:00:00",
+            "08:30:00",
+            "09:00:00",
+            "09:30:00",
+            "10:00:00",
+            "10:30:00",
+            "11:00:00",
+            "11:30:00",
+            "12:00:00",
+            "12:30:00",
+            "13:00:00",
+            "13:30:00",
+            "14:00:00",
+            "14:30:00",
+            "15:30:00",
+            "16:00:00",
+            "16:30:00",
+            "17:30:00",
+            "18:00:00",
+            "18:30:00",
+            "19:00:00",
+            "19:30:00",
+            "20:00:00"
+        ]
+    },
+    {
+        "df65fcd88bbe": [
+            "10:00:00",
+            "10:30:00",
+            "11:00:00",
+            "11:30:00",
+            "12:00:00",
+            "12:30:00",
+            "13:00:00",
+            "13:30:00",
+            "14:00:00",
+            "15:00:00",
+            "15:30:00",
+            "16:00:00",
+            "16:30:00",
+            "17:00:00",
+            "17:30:00",
+            "18:00:00",
+            "18:30:00",
+            "19:00:00",
+            "19:30:00",
+            "20:00:00",
+            "20:30:00",
+            "21:00:00",
+            "21:30:00",
+            "22:00:00"
+        ]
+    }
+]
+      let arrayVacio = []
+      function crearJson(start){
+        start[0][1].forEach((element) => {
+        let eljson = {};
+        eljson.title = 'LIBRE';
+        eljson.description=start[0][0]
+        eljson.color= 'green';
+
+          eljson.start=`2023-02-19T${element}`;
+          arrayVacio.push(eljson)
+        })
+      }
+
+
+
+      todas_las_horas.forEach((element) => {
+        crearJson(Object.entries(element))
+      })
+      console.log(arrayVacio)
+
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const calendarEl = document.getElementById('calendar')
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+          locale: 'esLocale', // Idioma en español
+          defaultTimedEventDuration: "00:30", //Duracion de todos los eventos
+          contentHeight: 600,
+          allDaySlot: false, // no muestra arriba del todo una seccion para eventos de todo el dia
+          slotDuration: '00:15', // cantidad de minutos para los eventos entre hora y hora
+          slotMinTime: '09:00:00', // Hora de comienzo de la agenda de la barbería
+          slotMaxTime: '21:00:00', // Hora de fin de la agenda de la barbería
+          initialView: 'timeGridWeek',// A name of any of the available views, such as 'dayGridWeek', 'timeGridDay', 'listWeek'
+          events: arrayVacio,
+  eventClick: function(info) {
+
+    $("#exampleModal").modal();
+
+  }
+        }       )
+        calendar.render()
+      })
+    </script>
+
+  </head>
+  <body>
+    
+
+
+    <div id='calendar'></div>
+    
+    <div class="modal" id="exampleModal"  tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Modal body text goes here.</p>
+          </div>
+    
+          <!--Este es el pie del modal aqui puedes agregar mas botones-->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </body>
+</html>

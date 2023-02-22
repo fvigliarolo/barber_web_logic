@@ -1,7 +1,6 @@
 import { getFetch  } from "../utils/fetch.js";
-// let barberos = {alex: "ZXg5ZGJlMjU=", Facu:"Y3U0MWE5MjI=", dami: "ZGVkODhiYmU="}
+let barberos = {c05ada79dbe25: "alex", bf791a441a922:"Facu", df65fcd88bbe: "fede" }
 const servicio = "00:30:00"
-const barberos = getFetch('barberos/data');
+const barbers_basic_info = getFetch('barberos/data');
 
-// export  {barberos, servicio};
-export  {barberos, servicio};
+export  {barberos, servicio, barbers_basic_info};

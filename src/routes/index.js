@@ -6,10 +6,11 @@ import getHash from '../utils/getHash.js';
 import { Reservas, crear_reserva } from '../pages/Reservas.js';
 import { getFetch } from '../utils/fetch.js';
 import Galeria from '../pages/Galeria.js';
-import { barberos } from '../utils/barber_variables.js';
+import { barberos, barbers_basic_info } from '../utils/barber_variables.js';
+// import { barbers_basic_info } from '../utils/barber_variables.js';
 // const mysql = require('mysql')
 
-const router = () => {
+const router = async () => {
 
     const hash = getHash()
     let route;
@@ -48,65 +49,77 @@ const router = () => {
     }
     render_content()
 
-    // barberos.then(barberos => console.log(barberos.map(function(barbero){
-    //     return barbero.barbero_jornada_inicio
-    // }).includes('11:00:00')))
-    // barberos.then(barberos => (barberos.map(function(barbero){
-    //     return barbero.barbero_jornada_inicio
-    // }).forEach(hora => {
-    //     console.log(hora)
-    //     if ("09:00:00" <= hora ){
-    //         console.log("hora valida")
-    // }else{
-    //     console.log("todavia no abrio")
-    // }
-    // })))
-    let reservas = ["08:00:00", "09:00:00", "09:30:00", "10:00:00"]
-    let horas_disponibles =[];
+//  console.log(await barbers_basic_info)
 
-
-    function calcular_horas_libres(barberos){
-        let jornada_inicio = barberos[0].barbero_jornada_inicio.split(":");
-        let jornada_fin = barberos[0].barbero_jornada_fin.split(":");
-        let hora_inicio = new Date()
-        let hora_fin = new Date()
-        hora_inicio.setHours(jornada_inicio[0], jornada_inicio[1], jornada_inicio[2])
-        hora_fin.setHours(jornada_fin[0], jornada_fin[1], jornada_fin[2])
-
-        for (hora_inicio.toLocaleTimeString(); hora_inicio.toLocaleTimeString() <= hora_fin.toLocaleTimeString(); hora_inicio.setMinutes(hora_inicio.getMinutes() + 30)) {
-
-            if (reservas.includes(hora_inicio.toLocaleTimeString())) {
-                
-            } else {
-                horas_disponibles.push(hora_inicio.toLocaleTimeString())
-            }
-        }
-        console.log(horas_disponibles)
+    let url_horario_laboral_barberos = 'http://localhost:3000/barberos'
+    async function horas(endpoint){
+        return axios
+        .get(endpoint)
+        .then(response => response.data)
     }
-    barberos.then(barberos => 
-        // {
-        calcular_horas_libres(barberos) 
-        // for (let hora_inicio = barberos[0].barbero_jornada_inicio; hora_inicio <= barberos[0].barbero_jornada_fin; hora_inicio += "00:30:00") {
-        //     if (reservas.includes(hora_inicio)) {
-        //         console.log("la hora " + hora_inicio + " esta reservada")
-        //     } else {
-        //         horas_disponibles.push(hora_inicio)
-        //     }
-        // }
-        // console.log("las horas disponibles son" + horas_disponibles)
-    // }
-    );
+
+    let arr_horas_inicioAfin_por_barbero = await horas(url_horario_laboral_barberos);
 
 
+    let horas_a_mostrar_en_calendario = []
+    function crearJson(start){
+      start[0][1].forEach((element) => {
+      let eljson = {};
+      eljson.title = barberos[start[0][0]];
+      eljson.description=start[0][0]
+      eljson.color= 'green';
+
+        eljson.start=`2023-02-19T${element}`;
+        horas_a_mostrar_en_calendario.push(eljson)
+      })
+    }
+    arr_horas_inicioAfin_por_barbero.forEach((element) => {
+      crearJson(Object.entries(element))
+    })
+
+    console.group("Array de los eventos de dia disponible => horas_a_mostrar_en_calendario");
+        console.log(horas_a_mostrar_en_calendario)
+    console.groupEnd();
+    
 
 
+    function cargarCalendario(){
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            locale: 'esLocale', // Idioma en español
+            defaultTimedEventDuration: "00:30", //Duracion de todos los eventos
+            contentHeight: 600,
+            allDaySlot: false, // no muestra arriba del todo una seccion para eventos de todo el dia
+            slotDuration: '00:15', // cantidad de minutos para los eventos entre hora y hora
+            slotMinTime: '09:00:00', // Hora de comienzo de la agenda de la barbería
+            slotMaxTime: '21:00:00', // Hora de fin de la agenda de la barbería
+            initialView: 'timeGridWeek',// A name of any of the available views, such as 'dayGridWeek', 'timeGridDay', 'listWeek'
+            events: horas_a_mostrar_en_calendario,
+      eventClick:  function(info) {
+        
+        $('#exampleModal').modal()
+            console.log(info.event)
+        modal.innerHTML = ` <p>Para el ${info.event.startStr.split("T")[0]}</p>
+                            <p>A las ${info.event.startStr.split("T")[1].split("-")[0]}</p>`
+        modalTitle.innerHTML = `<h3>Reservar hora con:  ${info.event.title}</h3>`
+      }
+          }       )
+          calendar.render()
+        
+    }
+    const calendarEl = document.getElementById('calendar');
+    const modal = document.getElementById('modalBody')
+    const modalTitle = document.getElementById("modal-header")
+    calendarEl.onload = cargarCalendario();
+
+      
+    
     if (logica == "Class_Reservar") {
         // let barberos = getFetch('barberos/reservas')
         // barberos.then((barberos)=>{
         //     console.log(barberos)
         // })
         let form_reservas = document.getElementById("form_reservas_button");
-        // form_reservas.addEventListener("click", crear_reserva);
+        form_reservas.addEventListener("click", crear_reserva);
         // form_reservas.addEventListener("click", async (e) => {
         //     e.preventDefault()
         //     const response = await fetch('http://localhost:3000/reserva/datetimes');
@@ -119,10 +132,7 @@ const router = () => {
 } //cierra router
 
 
-
-
 //ROUTER
-
 export default router;
 
 
@@ -143,35 +153,6 @@ export default router;
 //         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
 //         body: JSON.stringify(['43','fran','fran@gmail.com','099123123','2002-02-25','17:00:00','Y3U0MWE5MjI=']) // body data type must match "Content-Type" header
 //     });
-//     const data = await response.json();
-//     console.log(data)
-// })
-
-
-//  SELECT       
-//===============     
-// form_reservas.addEventListener("click", async (e) =>{
-//     e.preventDefault()
-//     const response = await fetch('http://localhost:3000/reserva');
-//     const data = await response.json();
-//     console.log(data)
-// })
-
-//// SELECT ID 
-//     ////==============
-//     form_reservas.addEventListener("click", async (e) =>{
-//         e.preventDefault()
-//         const response = await fetch('http://localhost:3000/reserva/datetimes/2');
-//         const data = await response.json();
-//         console.log(data)
-//     })
-
-
-//  SELECT BARBEROS 
-//=====================
-//         form_reservas.addEventListener("click", async (e) =>{
-//     e.preventDefault()
-//     const response = await fetch('http://localhost:3000/barberos');
 //     const data = await response.json();
 //     console.log(data)
 // })

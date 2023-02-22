@@ -1,11 +1,31 @@
 import sanitizator from '../utils/sanitizator.js';
-import { barberos } from '../utils/barber_variables.js';
+import { barbers_basic_info } from '../utils/barber_variables.js';
 import { myFetch, postFetch } from '../utils/fetch.js';
 // import postFetch from '../utils/fetch.js';
 
 
 const Reservas = () => {
     const view = /*html*/ `
+    <div id='calendar'></div>
+    <div class="modal" id="exampleModal"  tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" id="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+            </div>
+
+            <!--Este es el pie del modal aqui puedes agregar mas botones-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Reservar</button>
+            </div>
+        </div>
+    </div>
+</div>
   <form id="form_reservas" class="form_reservas" autocomplete="off">
   <label for="nombre_cliente">Su nombre</label>
     <br>
@@ -43,6 +63,13 @@ const Reservas = () => {
     <input type="submit" id="form_reservas_button" class="form_reservas_button" value="confirmar"> 
 
   </form>
+
+    
+
+  
+</body>
+</html>
+
   
 `;
     return view;
@@ -86,22 +113,30 @@ let error = {
 
 function crear_reserva(e) {
     e.preventDefault()
-    let nombre_cliente = sanitizator(document.getElementById("nombre_cliente").value)
-    let mail_cliente = sanitizator(document.getElementById("mail_cliente").value)
-    let telefono_cliente = sanitizator(document.getElementById("telefono_cliente").value)
-    let barbero_seleccionado = sanitizator(document.getElementById("barbero_seleccionado").value)
-    let date_seleccionado = sanitizator(document.getElementById("date_seleccionado").value)
-    let time_seleccionado = sanitizator(document.getElementById("time_seleccionado").value)
+    let radioButton_CualquierDia = document.getElementById("radio_button2").checked 
 
-    let obj_Reserva = {
-        nombre_cliente: nombre_cliente,
-        mail_cliente: mail_cliente,
-        telefono_cliente: telefono_cliente,
-        date_seleccionado: date_seleccionado,
-        time_seleccionado: time_seleccionado,
-        barbero_seleccionado: 'Y3U0MWE5MjI='
-        // barbero_seleccionado: barberos[barbero_seleccionado]
+
+    if(radioButton_CualquierDia){
+        alert("reserva rapida")
+    }else{
+        alert("reserva lenta")
     }
+    // let nombre_cliente = sanitizator(document.getElementById("nombre_cliente").value)
+    // let mail_cliente = sanitizator(document.getElementById("mail_cliente").value)
+    // let telefono_cliente = sanitizator(document.getElementById("telefono_cliente").value)
+    // let barbero_seleccionado = sanitizator(document.getElementById("barbero_seleccionado").value)
+    // let date_seleccionado = sanitizator(document.getElementById("date_seleccionado").value)
+    // let time_seleccionado = sanitizator(document.getElementById("time_seleccionado").value)
+
+    // let obj_Reserva = {
+    //     nombre_cliente: nombre_cliente,
+    //     mail_cliente: mail_cliente,
+    //     telefono_cliente: telefono_cliente,
+    //     date_seleccionado: date_seleccionado,
+    //     time_seleccionado: time_seleccionado,
+    //     barbero_seleccionado: 'Y3U0MWE5MjI='
+    //     // barbero_seleccionado: barberos[barbero_seleccionado]
+    // }
 
 
 
@@ -151,7 +186,7 @@ function crear_reserva(e) {
         errors.push(error[4])
     }
     ////      VERIFICA BARBERO 
-    if (barberos.hasOwnProperty(barbero_seleccionado) == false) {
+    if (barbers_basic_info.hasOwnProperty(barbero_seleccionado) == false) {
         errors.push(error[5])
     }
     ////      VERIFICA TELEFONO
