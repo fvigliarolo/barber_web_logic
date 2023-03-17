@@ -62,13 +62,11 @@ const router = async () => {
 
 
     let horas_a_mostrar_en_calendario = []
-    function crearJson(start){
-    // console.log(start[1][1])
+    function crearJson(start, barberoID){
       start[1][1].forEach((element) => {
-        console.log(element.split("T")[1])
       let eljson = {};
       eljson.title = barberos[start[0][1]];
-      eljson.description=element.split("T")[1]
+      eljson.description=barberoID
       eljson.color= 'green';
 
         eljson.start=element;
@@ -77,16 +75,42 @@ const router = async () => {
     }
 
 
+    async function hacer_reserva(datos_de_reserva){
+        const response = await fetch('http://localhost:3000/reserva', {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json'
+                //   'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: JSON.stringify(datos_de_reserva) // body data type must match "Content-Type" header
+        });
+        const data = await response.json();
+        console.log(data)
+    }
+
     // console.log(arr_horas_inicioAfin_por_barbero)
     Object.entries(arr_horas_inicioAfin_por_barbero).forEach((element) => {
-      crearJson(Object.entries(element))
+      crearJson(Object.entries(element), element[0])
     })
 
     // console.group("Array de los eventos de dia disponible => horas_a_mostrar_en_calendario");
     //     console.log(horas_a_mostrar_en_calendario)
     // console.groupEnd();
 
+    function refrescarModal(eventData){
+        const label_datosBarbero_nombre = document.getElementById("datosBarbero_nombre")
+        const label_datosBarbero_dia = document.getElementById("datosBarbero_dia")
+        const label_datosBarbero_hora = document.getElementById("datosBarbero_hora")
 
+        label_datosBarbero_nombre.innerHTML = `<p>Barbero: ${eventData.title}</p>`
+        label_datosBarbero_dia.innerHTML =  ` <p>Para el: ${eventData.startStr.split("T")[0]}</p>`
+        label_datosBarbero_hora.innerHTML = `<p>A las: ${eventData.startStr.split("T")[1].split("-")[0]}</p>`
+    }
 
     function cargarCalendario(){
         const calendar = new FullCalendar.Calendar(calendarEl, {
@@ -102,17 +126,14 @@ const router = async () => {
             events: horas_a_mostrar_en_calendario,
       eventClick:  function(info) {
         $('#exampleModal').modal()
+        refrescarModal(info.event)
 
-        // modal.innerHTML = ` <p>Para el ${info.event.startStr.split("T")[0]}</p>
-        //                     <p>A las ${info.event.startStr.split("T")[1].split("-")[0]}</p>
-        //                     <p>La dauracion estimada es de ${info.event.startStr.split("T")[0]}</p>`
-        // modalTitle.innerHTML = `<h3>Reservar hora con:  ALGUIEN</h3>`
-        document.getElementById("datosBarbero_nombre").innerHTML = `Barbero: ${info.event.title}`
-
-        // modalBtn.addEventListener("click", inforr, {once: true})
-        modalBtn.onclick = () =>{
+        const modalBtn = document.getElementById("modalBtn")
+            modalBtn.onclick = () =>{
             event.preventDefault();
-            console.log(info.event.title)
+
+            const array_datos_reserva = crear_reserva(info.event.extendedProps.description, info.event.startStr.split("T")[0], info.event.startStr.split("T")[1].split("-")[0])
+            hacer_reserva(array_datos_reserva)
         }
       
     // LEER para hacer el modal definitivo-> https://bbbootstrap.com/snippets/modal-dialog-multi-step-form-wizard-29726524
@@ -139,10 +160,9 @@ const router = async () => {
     // console.log(url_todos_los_dias)
 
     const calendarEl = document.getElementById('calendar');
-    const modal = document.getElementById('modalBody')
-    const modalTitle = document.getElementById("modal-header")
     calendarEl.onload = cargarCalendario();
-    const modalBtn = document.getElementById("modalBtn")
+
+    
 } //cierra router
 
 
@@ -151,8 +171,15 @@ export default router;
 
 
 //  INSERT       
-//===============     
-// form_reservas.addEventListener("click", async (e) => {
+// ===============     
+
+// })
+
+
+
+//  INSERT       
+// ===============     
+// // form_reservas.addEventListener("click", async (e) => {
 //     e.preventDefault()
 //     const response = await fetch('http://localhost:3000/reserva', {
 //         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -169,4 +196,4 @@ export default router;
 //     });
 //     const data = await response.json();
 //     console.log(data)
-// })
+// // })
