@@ -133,7 +133,11 @@ const router = async () => {
             event.preventDefault();
 
             const array_datos_reserva = crear_reserva(info.event.extendedProps.description, info.event.startStr.split("T")[0], info.event.startStr.split("T")[1].split("-")[0])
-            hacer_reserva(array_datos_reserva)
+            if (array_datos_reserva == "ERROR"){
+                alert("verifique los datos")
+            }else{
+                hacer_reserva(array_datos_reserva)
+            }
         }
       
     // LEER para hacer el modal definitivo-> https://bbbootstrap.com/snippets/modal-dialog-multi-step-form-wizard-29726524
