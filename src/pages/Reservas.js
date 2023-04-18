@@ -70,8 +70,8 @@ const Reservas = () => {
 };
 
 class Class_Reservar {
-    constructor({ __id, nombre_cliente, mail_cliente, telefono_cliente, date_seleccionado, time_seleccionado, barbero_seleccionado }) {
-        this.id = __id;
+    constructor({nombre_cliente, mail_cliente, telefono_cliente, date_seleccionado, time_seleccionado, barbero_seleccionado }) {
+        // this.id = __id;
         this.nombre_cliente = nombre_cliente;
         this.mail_cliente = mail_cliente;
         this.telefono_cliente = telefono_cliente;
@@ -80,29 +80,17 @@ class Class_Reservar {
         this.barbero_seleccionado = barbero_seleccionado;
     }
 
-    get id() {
-        return this.__id
-    }
+    // get id() {
+    //     return this.__id
+    // }
 
-    set id(a) {
-        this.__id = Math.random().toString(16).slice(2)
-    }
+    // set id(a) {
+    //     this.__id = Math.random().toString(16).slice(2)
+    // }
 
 }
 
 
-let errors = []
-let error = {
-    1: "El nombre no puede ser vacio",
-    2: "No se permite numeros en el nombre",
-    3: "Verifique formato de mail",
-    4: "Ingrese algun contacto",
-    5: "Error con barbero seleccionado",
-    6: "No se permiten letras en el telefono",
-    7: "Verifique la fecha ingresada",
-    8: "Verifique la hora seleccionada",
-    9: "La fecha debe ser vigente"
-}
 
 
 function crear_reserva(barbero_seleccionado, date_seleccionado, time_seleccionado) {
@@ -115,13 +103,23 @@ function crear_reserva(barbero_seleccionado, date_seleccionado, time_seleccionad
     // }else{
     //     alert("reserva lenta")
     // }
+let errors = []
+let error = {
+    1: "El nombre no puede ser vacio",
+    2: "No se permite numeros en el nombre",
+    3: "Verifique formato de mail",
+    4: "Ingrese ambos contactos",
+    5: "Error con barbero seleccionado",
+    6: "No se permiten letras en el telefono",
+    7: "Verifique la fecha ingresada",
+    8: "Verifique la hora seleccionada",
+    9: "La fecha debe ser vigente"
+}
+
     const nombre_cliente = sanitizator(document.getElementById("input_nombre").value)
     const mail_cliente = sanitizator(document.getElementById("input_mail").value)
     const telefono_cliente = sanitizator(document.getElementById("input_telefono").value)
 
-    // let barbero_seleccionado = sanitizator(document.getElementById("barbero_seleccionado").value)
-    // let date_seleccionado = sanitizator(document.getElementById("date_seleccionado").value)
-    // let time_seleccionado = sanitizator(document.getElementById("time_seleccionado").value)
 
     let obj_Reserva = {
         nombre_cliente: nombre_cliente,
@@ -130,7 +128,6 @@ function crear_reserva(barbero_seleccionado, date_seleccionado, time_seleccionad
         date_seleccionado: date_seleccionado,
         time_seleccionado: time_seleccionado,
         barbero_seleccionado: barbero_seleccionado
-        // barbero_seleccionado: barberos[barbero_seleccionado]
     }
 
 
@@ -177,7 +174,7 @@ function crear_reserva(barbero_seleccionado, date_seleccionado, time_seleccionad
         }
     }
     ////      VERIFICA CONTACTO
-    if ((mail_cliente == "" || mail_cliente == null) && (telefono_cliente == null || telefono_cliente == "")) {
+    if ((mail_cliente == "" || mail_cliente == null) || (telefono_cliente == null || telefono_cliente == "")) {
         errors.push(error[4])
     }
     // ////      VERIFICA BARBERO 
@@ -205,30 +202,15 @@ function crear_reserva(barbero_seleccionado, date_seleccionado, time_seleccionad
     let retorno;
     if (errors.length > 0) {
         console.log("No se puede crear la reserva: " + errors)
+        retorno = "ERROR"
     } else {
         console.log("Formulario valido.")
         let nueva_reserva = new Class_Reservar(obj_Reserva);
         nueva_reserva =  Object.values(nueva_reserva)
         retorno = nueva_reserva
-    //    console.log(nueva_reserva)
-    //    let request = postFetch('reserva', nueva_reserva)
-
     }
-
-
-    // GET
-    // function getFetch(endpoint) {
-    //     return new Promise((resolve, reject) => {
-    //         const data = myFetch.get(endpoint)
-    //         resolve(data)
-    //     })
-    // }
-    // let data = getFetch('reserva/datetimes')
-    // data.then(console.log)
     return retorno
 }
-// errors = []
-// }
 
 export { Reservas, crear_reserva };
 
