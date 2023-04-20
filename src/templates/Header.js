@@ -30,15 +30,7 @@ const Header = () => {
           </li>
           <li class="u-nav-item"><a
               class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-              href="/#/about" style="padding: 10px 20px;">Nosotros</a>
-          </li>
-          <li class="u-nav-item"><a
-              class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
               href="/#/reservas" style="padding: 10px 20px;">Reservas</a>
-          </li>
-          <li class="u-nav-item"><a
-              class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-              href="/#/galeria" style="padding: 10px 20px;">Galería</a>
           </li>
         </ul>
       </div>
@@ -49,11 +41,7 @@ const Header = () => {
             <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
               <li class="u-nav-item"><a class="u-button-style u-nav-link" href="/">Inicio</a>
               </li>
-              <li class="u-nav-item"><a class="u-button-style u-nav-link" href="/#/about">Nosotros</a>
-              </li>
               <li class="u-nav-item"><a class="u-button-style u-nav-link" href="/#/reservas">Reservas</a>
-              </li>
-              <li class="u-nav-item"><a class="u-button-style u-nav-link" href="/#/galeria">Galería</a>
               </li>
             </ul>
           </div>
