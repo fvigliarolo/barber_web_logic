@@ -7,11 +7,6 @@ const Confirmar_reserva = () => {
       const reserva_id = urlParams.get('reserva_id');
       const mail = urlParams.get('mail');
       
-      console.group("Parametros")
-      console.log(`codigo: ${codigo}`)
-      console.log(`reserva_id: ${reserva_id}`)
-      console.log(`mail: ${mail}`)
-      console.groupEnd()
       hacer_reserva(codigo, reserva_id, mail);
     return view;
     
