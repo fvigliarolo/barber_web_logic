@@ -19,6 +19,7 @@ const calendar = document.querySelector(".calendar"),
   eventWrappTelefono = document.querySelector(".telefono-cliente "),
   eventWrapperTitle = document.getElementById("event-wrapper-title"),
   addEventSubmit = document.querySelector(".add-event-btn ");
+prev.style.visibility = "hidden"
 
 let today = new Date();
 let activeDay;
@@ -28,6 +29,9 @@ let barberId;
 let hora;
 let eventoDate;
 let errors = []
+
+
+
 const error = {
   1: "El nombre no puede ser vacio",
   2: "No se permite numeros en el nombre",
@@ -62,6 +66,7 @@ const eventsArr = horas_disponibles_por_barbero;
 
 //function to add days in days with class day and prev-date next-date on previous month and next month days and active on today
 function initCalendar() {
+
   const firstDay = new Date(year, month, 1);
   const lastDay = new Date(year, month + 1, 0);
   const prevLastDay = new Date(year, month, 0);
@@ -121,15 +126,23 @@ function initCalendar() {
 
 //function to add month and year on prev and next button
 function prevMonth() {
-  month--;
-  if (month < 0) {
-    month = 11;
-    year--;
+  if ((month - 1) < today.getMonth())
+    prev.style.visibility = "hidden"
+  else {
+    prev.style.visibility = "visible"
+    month--;
+    if ((month - 1) < today.getMonth()) // si vamos atras en el mes siguiente al actual, que desaparezca la flecha al llegar al mes actual 
+      prev.style.visibility = "hidden"
+    if (month < 0) {
+      month = 11;
+      year--;
+    }
+    initCalendar();
   }
-  initCalendar();
 }
 
 function nextMonth() {
+  prev.style.visibility = "visible"
   month++;
   if (month > 11) {
     month = 0;
@@ -192,51 +205,128 @@ function addListner() {
   });
 }
 
-todayBtn.addEventListener("click", () => {
+function setToday() {
   today = new Date();
   month = today.getMonth();
   year = today.getFullYear();
+  console.log(`todaybtn ${today}`)
   initCalendar();
+}
+
+todayBtn.addEventListener("click", () => {
+  setToday()
 });
 
+// verificamos que no se puedan ingresar formatos de fechas extranos
 dateInput.addEventListener("input", (e) => {
   dateInput.value = dateInput.value.replace(/[^0-9/]/g, "");
-  if (dateInput.value.length === 2) {
-    dateInput.value += "/";
+
+  if (dateInput.value.length === 2 && dateInput.value.charAt(1) !== "/") {
+    dateInput.value = dateInput.value.slice(0, 2) + "/" + dateInput.value.slice(2);
+  } else if (dateInput.value.length === 1 && dateInput.value > 1) {
+    dateInput.value = "0" + dateInput.value;
+  } else if (dateInput.value.length === 3 && dateInput.value.charAt(2) !== "/") {
+    dateInput.value = dateInput.value.slice(0, 2) + "/" + dateInput.value.slice(2);
   }
-  if (dateInput.value.length > 7) {
-    dateInput.value = dateInput.value.slice(0, 7);
+
+  if (dateInput.value.length > 5) {
+    dateInput.value = dateInput.value.slice(0, 5);
   }
-  if (e.inputType === "deleteContentBackward") {
-    if (dateInput.value.length === 3) {
-      dateInput.value = dateInput.value.slice(0, 2);
-    }
+
+  if (e.inputType === "deleteContentBackward" && dateInput.value.length === 3 && dateInput.value.charAt(2) === "/") {
+    dateInput.value = dateInput.value.slice(0, 2);
+  }
+
+  // Verificar si el primer número antes de "/" es mayor a 12
+  const parts = dateInput.value.split("/");
+  const month = parseInt(parts[0], 10);
+  if (month > 12) {
+    dateInput.value = "12/" + parts[1];
   }
 });
+
+// controlamos que no se pueda ingresar un numero de dia mayor al del mes que ingresamos
+dateInput.addEventListener("input", (e) => {
+  const inputValue = e.target.value.replace(/[^0-9/]/g, "");
+  const parts = inputValue.split("/");
+  const month = parts[0];
+  const day = parts[1];
+  
+  if (month.length === 2 && day && day.length > 1 && day > getDaysInMonth(month)) {
+    e.target.value = `${month}/${getDaysInMonth(month)}`;
+  } else if (month.length > 2) {
+    e.target.value = month.slice(0, 2);
+  }
+});
+
+function getDaysInMonth(month) {
+  const monthNumber = parseInt(month, 10);
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  return new Date(year, monthNumber, 0).getDate();
+}
+
+
+dateInput.addEventListener("blur", () => {
+  const dateArr = dateInput.value.split("/");
+
+  if(dateArr[1] < 10){
+    dateArr[1] = "0" + dateArr[1] 
+    dateInput.value = dateArr[0] + "/" + dateArr[1]
+  }
+
+})
 
 gotoBtn.addEventListener("click", gotoDate);
 
 function gotoDate() {
-  console.log("here");
+  function setActiveDay(dia) {
+    const days = document.querySelectorAll(".day");
+    days.forEach((day) => {
+      if (day.innerHTML == Number(dia)) {
+        day.classList.add("active");
+        getActiveDay(dia)
+      } else {
+        day.classList.remove("active")
+      }
+    })
+  }
+
   const dateArr = dateInput.value.split("/");
-  if (dateArr.length === 2) {
-    if (dateArr[0] > 0 && dateArr[0] < 13 && dateArr[1].length === 4) {
-      month = dateArr[0] - 1;
-      year = dateArr[1];
-      initCalendar();
+  if (dateArr.length == 2) {
+    if (dateArr[0] > 0 && dateArr[0] < 13 && dateArr[1].length < 3 && dateArr[1] > 0 && dateArr[1] < 32) {
+      setToday()
+      if ((dateArr[0] - 1) < month)
+        alert("mes erroneo")
+     else if ((dateArr[1] < today.getDate()) && (dateArr[0] - 1) == month) {
+        alert('dia anterior')
+      } else {
+        if (dateArr[0] > month) {
+          let i = dateArr[0] - month - 1
+          for (i; i > 0; i--) {
+            nextMonth()
+          }
+        }
+        setActiveDay(dateArr[1])
+
+
+      }
       return;
     }
+    alert("Invalid Date");
   }
-  alert("Invalid Date");
 }
 
-//function get active day day name and date and update eventday eventdate
+// function get active day day name and date and update eventday eventdate
 function getActiveDay(date) {
   const day = new Date(year, month, date);
-  const dayName = day.toString().split(" ")[0];
+  const dayName = day.toLocaleDateString('es-ES', { weekday: 'long' }).split(" ")[0];
   eventDay.innerHTML = dayName;
   eventDate.innerHTML = date + " " + months[month] + " " + year;
 }
+
+
+
 
 //function update events when a day is active
 function updateEvents(date) {
@@ -323,35 +413,35 @@ addEventSubmit.addEventListener("click", () => {
     return
   }
 
-let datosReserva = []
-function purificarDate(fecha){
-  let arrFecha = fecha.split("-")
-  if (arrFecha[1].length == 1)
-    fecha = arrFecha[2] + "-0" + arrFecha[1] + "-" + arrFecha[0] //formato aaaa/mm/dd
-  return fecha
-}
-function formatoHora(hora12) {
-  // Separar la hora, minutos, segundos y am/pm
-  var partes = hora12.split(" ");
-  var horaMinutos = partes[0].split(":");
-  var hora = parseInt(horaMinutos[0]);
-  var minutos = horaMinutos[1];
-  var segundos = horaMinutos[2];
-  var ampm = partes[1];
-  
-  // Convertir la hora al formato de 24 horas
-  if (ampm.toUpperCase() === "PM" && hora !== 12) {
-    hora += 12;
-  } else if (ampm.toUpperCase() === "AM" && hora === 12) {
-    hora = 0;
+  let datosReserva = []
+  function purificarDate(fecha) {
+    let arrFecha = fecha.split("-")
+    if (arrFecha[1].length == 1)
+      fecha = arrFecha[2] + "-0" + arrFecha[1] + "-" + arrFecha[0] //formato aaaa/mm/dd
+    return fecha
   }
-  
-  // Construir la hora en formato de 24 horas
-  var hora24 = hora.toString().padStart(2, "0") + ":" + minutos + ":" + segundos;
-  
-  return hora24;
-}
-  datosReserva.push(NombreCliente, eventEmailCliente, eventTelefonoCliente, purificarDate(eventoDate),formatoHora(hora), barberId)
+  function formatoHora(hora12) {
+    // Separar la hora, minutos, segundos y am/pm
+    var partes = hora12.split(" ");
+    var horaMinutos = partes[0].split(":");
+    var hora = parseInt(horaMinutos[0]);
+    var minutos = horaMinutos[1];
+    var segundos = horaMinutos[2];
+    var ampm = partes[1];
+
+    // Convertir la hora al formato de 24 horas
+    if (ampm.toUpperCase() === "PM" && hora !== 12) {
+      hora += 12;
+    } else if (ampm.toUpperCase() === "AM" && hora === 12) {
+      hora = 0;
+    }
+
+    // Construir la hora en formato de 24 horas
+    var hora24 = hora.toString().padStart(2, "0") + ":" + minutos + ":" + segundos;
+
+    return hora24;
+  }
+  datosReserva.push(NombreCliente, eventEmailCliente, eventTelefonoCliente, purificarDate(eventoDate), formatoHora(hora), barberId)
 
   async function hacer_reserva(datos_de_reserva) {
     const response = await fetch('http://localhost:3000/reserva', { // esta es la posta para hacer reserva
@@ -377,7 +467,7 @@ function formatoHora(hora12) {
   }
 
 
-// dejamos el eventwrapp con los campos vacios
+  // dejamos el eventwrapp con los campos vacios
   addEventWrapper.classList.remove("active");
   eventWrappNombre.value = "";
   eventWrappEmail.value = "";
@@ -409,7 +499,7 @@ eventsContainer.addEventListener("click", (e) => {
     eventoDate = eventDate;
     hora = eventTime;
     barberId = eventBarberoID
-    
+
 
     if (addEventWrapper.classList[1] == "active") {
       addEventWrapper.classList.remove("active");
@@ -443,18 +533,6 @@ eventsContainer.addEventListener("click", (e) => {
   }
 });
 
-
-
-function convertTime(time) {
-  //convert time to 24 hour format
-  let timeArr = time.split(":");
-  let timeHour = timeArr[0];
-  let timeMin = timeArr[1];
-  let timeFormat = timeHour >= 12 ? "PM" : "AM";
-  timeHour = timeHour % 12 || 12;
-  time = timeHour + ":" + timeMin + " " + timeFormat;
-  return time;
-}
 
 
 // ejemplo de un evento
