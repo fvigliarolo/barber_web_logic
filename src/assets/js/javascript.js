@@ -67,7 +67,7 @@ const eventsArr = horas_disponibles_por_barbero;
 //function to add days in days with class day and prev-date next-date on previous month and next month days and active on today
 function initCalendar() {
 
-  const firstDay = new Date(year, month, 1);
+  const firstDay = new Date(year, month, 1); // primer dia del mes actual
   const lastDay = new Date(year, month + 1, 0);
   const prevLastDay = new Date(year, month, 0);
   const prevDays = prevLastDay.getDate();
@@ -78,28 +78,34 @@ function initCalendar() {
   date.innerHTML = months[month] + " " + year;
 
   let days = "";
-
+  let anio = year
+  if(month == 1)
+    anio = year - 1 
+    // el problema esta en que day queda = 4.  
   for (let x = day; x > 0; x--) {
-    days += `<div class="day prev-date">${prevDays - x + 1}</div>`;
+    let event = false;
+    let diaPrevio = prevLastDay.getDate() - x + 1
+
+    eventsArr.forEach((eventObj) => {
+      if (eventObj.day === diaPrevio && eventObj.month === month && eventObj.year === anio) {
+          event = true
+      }
+    });
+    if (event)
+      days += `<div class="day prev-date event">${prevDays - x + 1}</div>`;
+    else
+      days += `<div class="day prev-date">${prevDays - x + 1}</div>`;
   }
 
   for (let i = 1; i <= lastDate; i++) {
     //check if event is present on that day
     let event = false;
     eventsArr.forEach((eventObj) => {
-      if (
-        eventObj.day === i &&
-        eventObj.month === month + 1 &&
-        eventObj.year === year
-      ) {
+      if (eventObj.day === i && eventObj.month === month + 1 && eventObj.year === year) {
         event = true;
       }
     });
-    if (
-      i === new Date().getDate() &&
-      year === new Date().getFullYear() &&
-      month === new Date().getMonth()
-    ) {
+    if (i === new Date().getDate() && year === new Date().getFullYear() && month === new Date().getMonth()) {
       activeDay = i;
       getActiveDay(i);
       updateEvents(i);
@@ -117,10 +123,37 @@ function initCalendar() {
     }
   }
 
+
+
+
   for (let j = 1; j <= nextDays; j++) {
-    days += `<div class="day next-date">${j}</div>`;
-  }
+    let event = false;
+    let anio = year
+    if(month == 12)
+      anio = year + 1 
+    eventsArr.forEach((eventObj) => {
+      if (eventObj.day === j && eventObj.month === month + 2 && eventObj.year === anio) {
+          event = true
+      }
+    });
+    if (event)
+      days += `<div class="day next-date event">${j}</div>`;
+    else
+      days += `<div class="day next-date">${j}</div>`;
+    }
   daysContainer.innerHTML = days;
+
+
+// quitamos estilos a los dias pasados
+  const elemntDays = document.querySelector(".days");
+  const hoy = new Date().getDate();
+  elemntDays.childNodes.forEach((elementDay) => {
+    if (!elementDay.className.includes("event")) {
+      elementDay.style.pointerEvents = "none"
+      elementDay.style.backgroundColor = "#7a6e6e54"
+    }
+  })
+
   addListner();
 }
 
@@ -161,9 +194,7 @@ function addListner() {
   const days = document.querySelectorAll(".day");
   days.forEach((day) => {
     day.addEventListener("click", (e) => {
-      getActiveDay(e.target.innerHTML);
-      updateEvents(Number(e.target.innerHTML));
-      activeDay = Number(e.target.innerHTML);
+
       //remove active
       days.forEach((day) => {
         day.classList.remove("active");
@@ -176,10 +207,7 @@ function addListner() {
           //add active where no prev-date or next-date
           const days = document.querySelectorAll(".day");
           days.forEach((day) => {
-            if (
-              !day.classList.contains("prev-date") &&
-              day.innerHTML === e.target.innerHTML
-            ) {
+            if (!day.classList.contains("prev-date") && day.innerHTML === e.target.innerHTML) {
               day.classList.add("active");
             }
           });
@@ -190,10 +218,7 @@ function addListner() {
         setTimeout(() => {
           const days = document.querySelectorAll(".day");
           days.forEach((day) => {
-            if (
-              !day.classList.contains("next-date") &&
-              day.innerHTML === e.target.innerHTML
-            ) {
+            if (!day.classList.contains("next-date") && day.innerHTML === e.target.innerHTML) {
               day.classList.add("active");
             }
           });
@@ -201,6 +226,9 @@ function addListner() {
       } else {
         e.target.classList.add("active");
       }
+      getActiveDay(e.target.innerHTML);
+      updateEvents(Number(e.target.innerHTML));
+      activeDay = Number(e.target.innerHTML);
     });
   });
 }
@@ -251,7 +279,7 @@ dateInput.addEventListener("input", (e) => {
   const parts = inputValue.split("/");
   const month = parts[0];
   const day = parts[1];
-  
+
   if (month.length === 2 && day && day.length > 1 && day > getDaysInMonth(month)) {
     e.target.value = `${month}/${getDaysInMonth(month)}`;
   } else if (month.length > 2) {
@@ -270,8 +298,8 @@ function getDaysInMonth(month) {
 dateInput.addEventListener("blur", () => {
   const dateArr = dateInput.value.split("/");
 
-  if(dateArr[1] < 10){
-    dateArr[1] = "0" + dateArr[1] 
+  if (dateArr[1] < 10) {
+    dateArr[1] = "0" + dateArr[1]
     dateInput.value = dateArr[0] + "/" + dateArr[1]
   }
 
@@ -298,7 +326,7 @@ function gotoDate() {
       setToday()
       if ((dateArr[0] - 1) < month)
         alert("mes erroneo")
-     else if ((dateArr[1] < today.getDate()) && (dateArr[0] - 1) == month) {
+      else if ((dateArr[1] < today.getDate()) && (dateArr[0] - 1) == month) {
         alert('dia anterior')
       } else {
         if (dateArr[0] > month) {
@@ -332,11 +360,7 @@ function getActiveDay(date) {
 function updateEvents(date) {
   let events = "";
   eventsArr.forEach((event) => {
-    if (
-      date === event.day &&
-      month + 1 === event.month &&
-      year === event.year
-    ) {
+    if (date === event.day && month + 1 === event.month && year === event.year) {
       event.events.forEach((event) => {
         events += `<div class="event" id="event">
             <div class="title">
@@ -532,7 +556,6 @@ eventsContainer.addEventListener("click", (e) => {
     });
   }
 });
-
 
 
 // ejemplo de un evento
