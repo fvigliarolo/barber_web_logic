@@ -29,7 +29,13 @@ let barberId;
 let hora;
 let eventoDate;
 let errors = []
+let barberos = { c05ada79dbe25: "alex", bf791a441a922: "Facu", df65fcd88bbe: "fede" }
+let selectElement = document.getElementById('mi-select');
+let optionEmpty = document.createElement('option');
 
+let allEventArrafuera = []
+let lastDate;
+let events3;
 
 
 const error = {
@@ -64,6 +70,9 @@ const months = [
 
 const eventsArr = horas_disponibles_por_barbero;
 
+
+
+
 //function to add days in days with class day and prev-date next-date on previous month and next month days and active on today
 function initCalendar() {
 
@@ -79,16 +88,16 @@ function initCalendar() {
 
   let days = "";
   let anio = year
-  if(month == 1)
-    anio = year - 1 
-    // el problema esta en que day queda = 4.  
+  if (month == 1)
+    anio = year - 1
+  // el problema esta en que day queda = 4.  
   for (let x = day; x > 0; x--) {
     let event = false;
     let diaPrevio = prevLastDay.getDate() - x + 1
 
     eventsArr.forEach((eventObj) => {
       if (eventObj.day === diaPrevio && eventObj.month === month && eventObj.year === anio) {
-          event = true
+        event = true
       }
     });
     if (event)
@@ -129,22 +138,22 @@ function initCalendar() {
   for (let j = 1; j <= nextDays; j++) {
     let event = false;
     let anio = year
-    if(month == 12)
-      anio = year + 1 
+    if (month == 12)
+      anio = year + 1
     eventsArr.forEach((eventObj) => {
       if (eventObj.day === j && eventObj.month === month + 2 && eventObj.year === anio) {
-          event = true
+        event = true
       }
     });
     if (event)
       days += `<div class="day next-date event">${j}</div>`;
     else
       days += `<div class="day next-date">${j}</div>`;
-    }
+  }
   daysContainer.innerHTML = days;
 
 
-// quitamos estilos a los dias pasados
+  // quitamos estilos a los dias pasados
   const elemntDays = document.querySelector(".days");
   const hoy = new Date().getDate();
   elemntDays.childNodes.forEach((elementDay) => {
@@ -355,6 +364,84 @@ function getActiveDay(date) {
 
 
 
+//Agregar los valores posibles para el filtro por barbero
+function setSelectBarberValues() {
+  optionEmpty.value = ''; // Agregar una opción vacía como la primera opción
+  optionEmpty.text = 'Todos los barberos';
+  selectElement.appendChild(optionEmpty);
+
+  for (let clave in barberos) {
+    if (barberos.hasOwnProperty(clave)) {
+      let valor = barberos[clave];
+
+      let option = document.createElement('option');
+      option.value = clave;
+      option.text = valor;
+
+      selectElement.appendChild(option);
+    }
+  }
+}
+
+function applySelectBarberoFilter() {
+  let events;
+
+  if (selectElement.value === '') {// Si se selecciona la opción vacía, se restablece la selección por defecto
+    optionEmpty.selected = true;
+    if (lastDate == document.querySelector(".events").children[0].children[1].children[1].innerHTML) {
+      events = document.querySelector(".events")
+      events.innerHTML = events3.innerHTML
+      lastDate = events.children[0].children[1].children[1].innerHTML
+    }
+
+  } else {
+    if (lastDate == document.querySelector(".events").children[0].children[1].children[1].innerHTML) {
+      let events = document.querySelector(".events")
+
+      events.childNodes.forEach((event) => event.remove())
+      events = document.querySelector(".events")
+      events.innerHTML = events3.innerHTML
+      events.childNodes.forEach((event) => {
+        event.childNodes.forEach((event2) => {
+          if (event2.className == "title" && event2.children[2].innerHTML != selectElement.value) {
+            console.log(event2.className)
+            event.remove()
+          }
+        })
+      })
+
+      lastDate = events.children[0].children[1].children[1].innerHTML
+    }
+    else {
+
+      events = document.querySelector(".events")
+      events3 = events.cloneNode(true)
+      events.childNodes.forEach((event) => {
+        // allEventArr.push(event)
+
+        event.childNodes.forEach((event2) => {
+
+          if (event2.className == "title" && event2.children[2].innerHTML != selectElement.value) {
+            // removeEventArr.push(event)
+            event.remove()
+          }
+        })
+      })
+
+      lastDate = document.querySelector(".events").children[0].children[1].children[1].innerHTML
+    }
+
+  }
+}
+
+
+
+
+
+
+// Agregar un evento de cambio al elemento <select>
+window.addEventListener('DOMContentLoaded', setSelectBarberValues());
+selectElement.addEventListener('change', applySelectBarberoFilter);
 
 //function update events when a day is active
 function updateEvents(date) {
@@ -366,10 +453,10 @@ function updateEvents(date) {
             <div class="title">
               <i class="fas fa-circle"></i>
               <h3 class="event-title">${event.title}</h3>
-            </div>
-            <div class="event-time">
-              <span class="event-time">${event.time}</span>
               <span class="event-time" style="visibility: hidden;">${event.description}</span>
+              </div>
+              <div class="event-time">
+              <span class="event-time">${event.time}</span>
               <span class="event-time" style="visibility: hidden;">${event.date}</span>
               </div>
             </div>
@@ -383,6 +470,7 @@ function updateEvents(date) {
         </div>`;
   }
   eventsContainer.innerHTML = events;
+  applySelectBarberoFilter()
 }
 
 addEventCloseBtn.addEventListener("click", () => {
@@ -515,12 +603,12 @@ function openEventWrap(text) {
 eventsContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("event")) {
 
-    const eventBarberoID = e.target.children[1].children[1].innerHTML;
+    const eventBarberoID = e.target.children[0].children[2].innerHTML;
     const eventTime = e.target.children[1].children[0].innerHTML;
-    const eventDate = e.target.children[1].children[2].innerHTML;
     const eventTitle = e.target.children[0].children[1].innerHTML;
+    const eventDate = e.target.children[1].children[1].innerHTML;
+    eventoDate = eventDate
 
-    eventoDate = eventDate;
     hora = eventTime;
     barberId = eventBarberoID
 
@@ -556,6 +644,8 @@ eventsContainer.addEventListener("click", (e) => {
     });
   }
 });
+
+
 
 
 // ejemplo de un evento
