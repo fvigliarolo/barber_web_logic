@@ -32,8 +32,6 @@ let errors = []
 let barberos = { c05ada79dbe25: "alex", bf791a441a922: "Facu", df65fcd88bbe: "fede" }
 let selectElement = document.getElementById('mi-select');
 let optionEmpty = document.createElement('option');
-
-let allEventArrafuera = []
 let lastDate;
 let events3;
 
@@ -69,8 +67,6 @@ const months = [
 
 
 const eventsArr = horas_disponibles_por_barbero;
-
-
 
 
 //function to add days in days with class day and prev-date next-date on previous month and next month days and active on today
@@ -131,9 +127,6 @@ function initCalendar() {
       }
     }
   }
-
-
-
 
   for (let j = 1; j <= nextDays; j++) {
     let event = false;
@@ -362,8 +355,6 @@ function getActiveDay(date) {
   eventDate.innerHTML = date + " " + months[month] + " " + year;
 }
 
-
-
 //Agregar los valores posibles para el filtro por barbero
 function setSelectBarberValues() {
   optionEmpty.value = ''; // Agregar una opción vacía como la primera opción
@@ -401,14 +392,11 @@ function applySelectBarberoFilter() {
       events.childNodes.forEach((event) => event.remove())
       events = document.querySelector(".events")
       events.innerHTML = events3.innerHTML
-      events.childNodes.forEach((event) => {
-        event.childNodes.forEach((event2) => {
-          if (event2.className == "title" && event2.children[2].innerHTML != selectElement.value) {
-            console.log(event2.className)
-            event.remove()
-          }
-        })
-      })
+      Object.entries(events.getElementsByClassName('event-barberID')).forEach((element) => {
+        // comparamos el barberId seleccionado con cada uno de los elementos
+        if(element[1].innerHTML != selectElement.value)
+            element[1].parentElement.parentElement.remove()
+    })
 
       lastDate = events.children[0].children[1].children[1].innerHTML
     }
@@ -416,17 +404,11 @@ function applySelectBarberoFilter() {
 
       events = document.querySelector(".events")
       events3 = events.cloneNode(true)
-      events.childNodes.forEach((event) => {
-        // allEventArr.push(event)
-
-        event.childNodes.forEach((event2) => {
-
-          if (event2.className == "title" && event2.children[2].innerHTML != selectElement.value) {
-            // removeEventArr.push(event)
-            event.remove()
-          }
-        })
-      })
+      Object.entries(events.getElementsByClassName('event-barberID')).forEach((element) => {
+        // comparamos el barberId seleccionado con cada uno de los elementos
+        if(element[1].innerHTML != selectElement.value)
+            element[1].parentElement.parentElement.remove()
+    })
 
       lastDate = document.querySelector(".events").children[0].children[1].children[1].innerHTML
     }
@@ -434,43 +416,66 @@ function applySelectBarberoFilter() {
   }
 }
 
-
-
-
-
-
 // Agregar un evento de cambio al elemento <select>
 window.addEventListener('DOMContentLoaded', setSelectBarberValues());
 selectElement.addEventListener('change', applySelectBarberoFilter);
 
-//function update events when a day is active
 function updateEvents(date) {
-  let events = "";
+  let events = [];
   eventsArr.forEach((event) => {
     if (date === event.day && month + 1 === event.month && year === event.year) {
-      event.events.forEach((event) => {
-        events += `<div class="event" id="event">
-            <div class="title">
-              <i class="fas fa-circle"></i>
-              <h3 class="event-title">${event.title}</h3>
-              <span class="event-time" style="visibility: hidden;">${event.description}</span>
-              </div>
-              <div class="event-time">
-              <span class="event-time">${event.time}</span>
-              <span class="event-time" style="visibility: hidden;">${event.date}</span>
-              </div>
-            </div>
+      event.events.forEach((eventData) => {
+        const eventElement = document.createElement("div");
+        eventElement.classList.add("event");
+        eventElement.innerHTML = `<div class="title">
+          <i class="fas fa-circle"></i>
+          <h3 class="event-title">${eventData.title}</h3>
+          <span class="event-barberID" style="visibility: hidden;">${eventData.description}</span>
+        </div>
+        <div class="event-time">
+          <span class="event-time-time">${eventData.time}</span>
+          <span class="event-date" style="visibility: hidden;">${eventData.date}</span>
         </div>`;
+
+        events.push(eventElement);
       });
     }
   });
-  if (events === "") {
-    events = `<div class="no-event">
-            <h3>No Events</h3>
-        </div>`;
+
+  if (events.length === 0) {
+    const noEventElement = document.createElement("div");
+    noEventElement.classList.add("no-event");
+    noEventElement.innerHTML = "<h3>No Events</h3>";
+    eventsContainer.appendChild(noEventElement);
+  } else {
+    // funcion para transformar la hora con formato am/fm a 24hrs
+    function getTimeFromSpan(spanElement) { 
+      var timeString = spanElement.textContent.trim();
+      var timeParts = timeString.split(":");
+      var hours = parseInt(timeParts[0]);
+      var minutes = parseInt(timeParts[1]);
+      var period = timeString.slice(-2);
+    
+      if (period.toLowerCase() === "pm" && hours < 12) {
+        hours += 12;
+      } else if (period.toLowerCase() === "am" && hours === 12) {
+        hours = 0;
+      }
+    
+      return hours * 100 + minutes;
+    }
+    // ordena de menor a mayor por hora
+    let arrayOrdenado = events.sort(function (a, b) {
+      let timeA = getTimeFromSpan(a.getElementsByClassName('event-time-time')[0])
+      let timeB = getTimeFromSpan(b.getElementsByClassName('event-time-time')[0])
+      return timeA - timeB;
+    })
+    arrayOrdenado.forEach((eventElement) => {
+      eventsContainer.appendChild(eventElement);
+    });
   }
-  eventsContainer.innerHTML = events;
-  applySelectBarberoFilter()
+
+  applySelectBarberoFilter();
 }
 
 addEventCloseBtn.addEventListener("click", () => {
@@ -500,8 +505,6 @@ function validateEmail(mail) {
   let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(mail)
 }
-
-
 
 //function to add event to eventsArr
 addEventSubmit.addEventListener("click", () => {
@@ -592,8 +595,6 @@ addEventSubmit.addEventListener("click", () => {
   }
 });
 
-
-
 function openEventWrap(text) {
   addEventWrapper.classList.toggle("active");
   eventWrapperTitle.innerText = text
@@ -624,7 +625,6 @@ eventsContainer.addEventListener("click", (e) => {
       openEventWrap(eventTitle + "  " + eventTime)
     }
 
-
     eventsArr.forEach((event) => {
       if (
         event.day === activeDay &&
@@ -644,7 +644,6 @@ eventsContainer.addEventListener("click", (e) => {
     });
   }
 });
-
 
 
 
