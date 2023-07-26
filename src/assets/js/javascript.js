@@ -379,14 +379,14 @@ function applySelectBarberoFilter() {
 
   if (selectElement.value === '') {// Si se selecciona la opción vacía, se restablece la selección por defecto
     optionEmpty.selected = true;
-    if (lastDate == document.querySelector(".events").children[0].children[1].children[1].innerHTML) {
+    if (document.querySelector(".events").children[0].className != 'no-event' && lastDate == document.querySelector(".events").children[0].children[1].children[1].innerHTML) {
       events = document.querySelector(".events")
       events.innerHTML = events3.innerHTML
       lastDate = events.children[0].children[1].children[1].innerHTML
     }
 
   } else {
-    if (lastDate == document.querySelector(".events").children[0].children[1].children[1].innerHTML) {
+    if (document.querySelector(".events").children[0].className != 'no-event' && lastDate == document.querySelector(".events").children[0].children[1].children[1].innerHTML) {
       let events = document.querySelector(".events")
 
       events.childNodes.forEach((event) => event.remove())
@@ -422,13 +422,17 @@ selectElement.addEventListener('change', applySelectBarberoFilter);
 
 function updateEvents(date) {
   let events = [];
+  // if (eventsContainer.children.length > 0 && eventsContainer.children[0].className == "no-event")
+  //     eventsContainer.removeChild(eventsContainer.getElementsByClassName('no-event')[0])
+  if(eventsContainer.children.length > 0 )
+    eventsContainer.innerHTML = ''
+    // eventsContainer.childNodes.forEach((event) => eventsContainer.removeChild(event))
   eventsArr.forEach((event) => {
     if (date === event.day && month + 1 === event.month && year === event.year) {
       event.events.forEach((eventData) => {
         const eventElement = document.createElement("div");
         eventElement.classList.add("event");
         eventElement.innerHTML = `<div class="title">
-          <i class="fas fa-circle"></i>
           <h3 class="event-title">${eventData.title}</h3>
           <span class="event-barberID" style="visibility: hidden;">${eventData.description}</span>
         </div>
@@ -604,11 +608,13 @@ function openEventWrap(text) {
 eventsContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("event")) {
 
-    const eventBarberoID = e.target.children[0].children[2].innerHTML;
-    const eventTime = e.target.children[1].children[0].innerHTML;
-    const eventTitle = e.target.children[0].children[1].innerHTML;
-    const eventDate = e.target.children[1].children[1].innerHTML;
+    const eventBarberoID = e.target.getElementsByClassName('event-barberID')[0].innerHTML;
+    const eventTime = e.target.getElementsByClassName('event-time-time')[0].innerHTML;
+    const eventTitle = e.target.getElementsByClassName('event-title')[0].innerHTML;
+    const eventDate = e.target.getElementsByClassName('event-date')[0].innerHTML;
     eventoDate = eventDate
+
+
 
     hora = eventTime;
     barberId = eventBarberoID
