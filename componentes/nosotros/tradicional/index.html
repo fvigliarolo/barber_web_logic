@@ -1,0 +1,165 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<style>
+    i{
+        color: black; /* ocultar color azul de un link */
+    }
+    .about{
+        background: linear-gradient(to bottom, #2F3438, #292C33, #121318, #080B12, #01040B);
+        display: flex;
+         flex-direction: column;
+    }
+    .contenedor-barberos {
+         display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center; 
+        place-self: center;
+        border-radius: 15px;
+    }
+
+    .contenedor-barbero {
+        background-color: aliceblue;
+        padding: 20px;
+        margin: 20px;
+        border-radius: 15px;
+    }
+
+    .contenedor-barbero img{
+        width: 400px;
+    }
+    .barbero-bottom {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .barbero-bottom-right {
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 20px;
+        flex-direction: row;
+        align-items: center;
+        margin-right: 60px;
+        margin-top: 15px;
+    }
+    .fab{
+        font-size:42px; 
+        cursor:pointer;
+    }
+
+@media (width >= 1000px ) 
+{
+    .contenedor-barberos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        width: 70%;
+        flex-wrap: wrap;
+        max-width: 1300px;
+    }
+}
+
+
+@media (width >= 1300px ) 
+{
+
+    .contenedor-barberos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        width: 70%;
+        flex-wrap: wrap;
+        max-width: 1600px;
+    }
+}
+
+</style>
+<section class="about" id="about">
+    <h2 class="titulo-componente-nosotros">Our Barbers</h2>
+
+    <div class="contenedor-barberos">
+        
+        <div class="contenedor-barbero">
+            <div class="barbero-top">
+                <img alt="" class="" src="/src/assets/images/section_7/barbero_1.jpeg">
+            </div>
+            <div class="barbero-bottom">
+                <div class="barbero-bottom-left">
+                    <h5 class="">Barber</h5>
+                    <h4 class="">Fred Morrison</h4>
+                </div>
+                <div class="barbero-bottom-right">
+                    <a href="https://www.google.com">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-tiktok"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="contenedor-barbero">
+            <div class="barbero-top">
+                <img alt="" class="" src="/src/assets/images/section_7/barbero_1.jpeg">
+            </div>
+            <div class="barbero-bottom">
+                <div class="barbero-bottom-left">
+                    <h5 class="">Barber</h5>
+                    <h4 class="">Fred Morrison</h4>
+                </div>
+                <div class="barbero-bottom-right">
+                    <a href="https://www.google.com">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-tiktok"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="contenedor-barbero">
+            <div class="barbero-top">
+                <img alt="" class="" src="/src/assets/images/section_7/barbero_2.jpeg">
+            </div>
+            <div class="barbero-bottom">
+                <div class="barbero-bottom-left">
+                    <h5 class="">Barber</h5>
+                    <h4 class="">Adrian Scold</h4>
+                </div>
+                <div class="barbero-bottom-right">
+                    <a href="https://www.google.com">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-tiktok"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="contenedor-barbero">
+            <div class="barbero-top">
+                <img alt="" class="u-expanded-width u-image u-image-default u-image-3"
+                    src="/src/assets/images/section_7/barbero_3.jpeg" data-image-width="560" data-image-height="635">
+            </div>
+            <div class="barbero-bottom">
+                <div class="barbero-bottom-left">
+                    <h5 class="u-align-left u-text u-text-palette-2-base u-text-7">Barber</h5>
+                    <h4 class="u-align-left u-text u-text-8">Elmer Briggs</h4>
+                </div>
+                <div class="barbero-bottom-right">
+                    <a href="https://www.google.com">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-tiktok"></i>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+</section>
