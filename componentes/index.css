@@ -1,0 +1,393 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Playfair Display', serif;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100%;
+    background: linear-gradient(to top, #2F3438, #292C33, #547695);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    place-content: center;
+    background: linear-gradient(to bottom, #2F3438, #292C33);
+    border-radius: 10px;
+    height: 100px;
+    place-items: center;
+    padding: 0px;
+    margin-bottom: 0px;
+
+}
+
+a:hover {
+    color: #77a7d3;
+}
+
+
+.contenedor-nav {
+    width: 380px;
+}
+
+.nav-anchor {
+    text-decoration: none;
+    color: antiquewhite;
+    margin: 15px;
+}
+
+.inicio {
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.contiene {
+    display: flex;
+    width: 380px;
+
+}
+
+.inicio-left {
+    width: 50%;
+    background: linear-gradient(to bottom, #2F3438, #292C33, #121318, #080B12, #01040B);
+    border-radius: 15px 0px 0px 15px;
+    display: flex;
+    align-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.contenido-left {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+.inicio-right {
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to bottom, #2F3438, #292C33, #121318, #080B12, #01040B);
+    border-radius: 0px 15px 15px 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.contenido-right {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+}
+
+.contenedor-texto {
+    margin-top: 50px;
+}
+
+
+.contenedor-texto h1 {
+    font-size: 2.2em;
+    text-align: center;
+    white-space: nowrap;
+    color: antiquewhite;
+    margin-right: 40px;
+}
+
+.contenedor-texto p {
+    letter-spacing: normal;
+    color: antiquewhite;
+    margin-bottom: 30px;
+}
+
+.contenedor-texto img {
+    width: 200px;
+}
+
+.hacer-reserva {
+    margin-left: 40px;
+}
+
+.boton-reservar {
+    font-size: 20px;
+    letter-spacing: 2px;
+    background: gray;
+    color: antiquewhite;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+    border: solid 2px antiquewhite;
+    margin-left: 20px;
+}
+
+.boton-reservar:hover {
+    background-color: #547695;
+    color: antiquewhite;
+}
+
+.contenedor-img {
+    background-image: url('inicio/barberoIA_inicio_215PX.png');
+    width: 215px;
+    height: 272px;
+}
+
+
+.nosotros {
+    display: flex;
+    flex-direction: column;
+}
+
+.contenedor-barberos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    place-self: center;
+    border-radius: 15px;
+    color: antiquewhite;
+    gap: 20px;
+
+}
+
+.contenedor-barbero {
+    background: linear-gradient(to bottom, #2F3438, #292C33, #121318, #080B12, #01040B);
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    width: 380px;
+
+}
+
+.contenedor-barbero img {
+    width: 200px;
+}
+
+.barbero-bottom {
+    display: flex;
+    margin-left: 10px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.barbero-bottom-right {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 20px;
+    flex-direction: row;
+    align-items: center;
+}
+
+.social-media-icon {
+    color: antiquewhite;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+
+
+@media screen and (width < 501px) {
+    .hacer-reserva {
+        margin-left: 0;
+    }
+
+    .contenedor-texto h1 {
+        font-size: revert;
+        margin-right: 0;
+    }
+
+    .contiene {
+        height: 330px;
+    }
+
+}
+
+@media screen and (width > 715px) {
+    body {
+        background: linear-gradient(to top, #2F3438, #292C33, #547695);
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    ul {
+        margin-bottom: 16px;
+    }
+
+    .contenedor-nav {
+        width: 715px;
+    }
+
+    .contiene {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 700px;
+        height: 460px;
+        align-self: center;
+    }
+
+    .contenedor-img {
+        background-image: url('inicio/barberoIA_inicio_340PX.png');
+        width: 340px;
+        height: 429px;
+    }
+
+    .contenedor-texto h1 {
+        font-size: 3.5em;
+        text-align: center;
+        white-space: nowrap;
+
+        color: antiquewhite;
+    }
+
+    .hacer-reserva {
+        margin-left: 85px;
+    }
+
+    .contenedor-barberos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        place-self: center;
+        border-radius: 15px;
+        color: antiquewhite;
+        gap: 20px;
+        flex-wrap: wrap;
+        flex-direction: row;
+        width: 700px;
+    }
+
+}
+
+@media screen and (width > 900px) {
+    ul {
+        margin-bottom: 16px;
+    }
+
+    .contenedor-nav {
+        width: 897px;
+    }
+
+    .contiene {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 880px;
+        height: 396px;
+        align-self: center;
+    }
+
+    .contenedor-img {
+        background-image: url('inicio/barberoIA_inicio_282PX.png');
+        width: 282px;
+        height: 356px;
+    }
+
+    .contenedor-texto {
+        margin-top: 50px;
+    }
+
+
+    .contenedor-texto h1 {
+        font-size: 3.5em;
+        text-align: center;
+        white-space: nowrap;
+        color: antiquewhite;
+    }
+
+    .hacer-reserva {
+        margin-left: 85px;
+    }
+
+    .contenedor-barberos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        place-self: center;
+        border-radius: 15px;
+        color: antiquewhite;
+        gap: 20px;
+        flex-wrap: wrap;
+        flex-direction: row;
+        width: 900px;
+    }
+
+        .contenedor-barbero {
+        background: linear-gradient(to bottom, #2F3438, #292C33, #121318, #080B12, #01040B);
+        padding: 20px;
+        border-radius: 15px;
+        display: flex;
+        width: 45%;
+    }
+}
+
+@media screen and (width > 1300px) {
+    body {
+        background: linear-gradient(to top, #2F3438, #292C33, #547695);
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    ul {
+        margin-bottom: 16px;
+    }
+
+    .contenedor-nav {
+        width: 1100px;
+
+    }
+
+    .contiene {
+        width: 1100px;
+        height: 450px;
+    }
+
+
+    .inicio-left {
+        width: 50%;
+        background: linear-gradient(to bottom, #2F3438, #292C33, #121318, #080B12, #01040B);
+        border-radius: 15px 0px 0px 15px;
+        display: flex;
+        align-content: flex-end;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .contenedor-barberos {
+        width: 1000px;
+    }
+
+
+    .contenedor-barbero {
+        background: linear-gradient(to bottom, #2F3438, #292C33, #121318, #080B12, #01040B);
+        padding: 20px;
+        border-radius: 15px;
+        display: flex;
+        width: 45%;
+    }
+
+}
+
+@media screen and (width > 715px) {
+    .nav-anchor {
+        text-decoration: none;
+        color: antiquewhite;
+        margin: 15px;
+        font-size: 20px;
+    }
+}
+
