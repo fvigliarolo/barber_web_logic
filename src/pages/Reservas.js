@@ -155,7 +155,7 @@ function crear_reserva(barbero_seleccionado, date_seleccionado, time_seleccionad
 }
 
 export { Reservas, crear_reserva };
-import sanitizator from '../utils/sanitizator.js';
+// import sanitizator from '../utils/sanitizator.js';
 
 // const Reservas = () => {
 //     const view = /*html*/ `

@@ -9,6 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,900&display=swap"
         rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<script type="module" src="./javascript.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
 
     <link rel="stylesheet" href="index.css">
     <title>Barber shop</title>
@@ -45,7 +49,7 @@
                         <h1>Barber Shop</h1>
                         <div class="hacer-reserva">
                             <p>Haga su reserva aqui</p>
-                            <a class="boton-reservar" href="#Reservas"> Reservar</a>
+                            <a class="boton-reservar" href="#reservas"> Reservar</a>
                         </div>
                     </div>
                 </div>
@@ -125,7 +129,78 @@
                     </div>
                 </div>
             </div>
-    </section>
+        </section>
+        <div class="container">
+            <div class="left">
+              <div class="calendar">
+                <div class="month">
+                  <i class="fas fa-angle-left prev"></i>
+                  <div class="date">Diciembre 2023</div>
+                  <i class="fas fa-angle-right next"></i>
+                </div>
+                <div class="weekdays">
+                  <div>Dom</div>
+                  <div>Lun</div>
+                  <div>Mar</div>
+                  <div>Mie</div>
+                  <div>Jue</div>
+                  <div>Vie</div>
+                  <div>Sab</div>
+                </div>
+                <div class="days"></div>
+                <div class="goto-today">
+                  <div class="goto">
+                    <input type="text" placeholder="mm/dd" class="date-input" />
+                    <button class="goto-btn">Buscar</button>
+                  </div>
+                  <!-- <div class="filters"> -->
+                    <div class="set_barbero">
+                      <select name="select" id="mi-select" class="set_barbero_select">
+                      </select>
+                    </div>
+                  <!-- </div> -->
+                  <button class="today-btn">Hoy</button>
+                </div>
+              </div>
+            </div>
+            <div class="right">
+              <div class="today-date">
+                <div class="event-day">Domingo</div>
+                <div class="event-date">31 diciembre 2023</div>
+                <h2 class="Horas_disponibles_por_barbero">Horas disponibles por barbero</h2>
+              </div>
+              <div class="events"></div>
+              <div class="add-event-wrapper">
+                <div class="add-event-header">
+                  <div class="title" id="event-wrapper-title"></div>
+                  <i class="fas fa-times close"></i>
+                </div>
+                <div class="add-event-body">
+                  <div class="add-event-input">
+                    <input type="text" placeholder="Ingrese su nombre" class="nombre-cliente" />
+                  </div>
+                  <div class="add-event-input">
+                    <input
+                      type="text"
+                      placeholder="Ingrese su email"
+                      class="email-cliente"
+                    />
+                  </div>
+                  <div class="add-event-input">
+                    <input
+                      type="text"
+                      placeholder="Ingrese su telefono"
+                      class="telefono-cliente"
+                    />
+                  </div>
+                </div>
+                <div class="add-event-footer">
+                  <button class="add-event-btn">Add Event</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <a class="go-to-top" href="#"><i class="fas fa-chevron-up"></i></a>
 </body>
 
 </html>
