@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Barber Shop</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css"> <!-- Enlace al archivo CSS externo -->
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Barber Shop</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#inicio">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#nosotros">Nosotros</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#reservas">Reservas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#galeria">Galeria</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sección de héroe -->
+  <section id="inicio" class="hero-section">
+    <div class="container text-center">
+      <h1>Bienvenido a Barber Shop</h1>
+      <p>Tu destino para un corte de cabello y afeitado perfecto.</p>
+    </div>
+  </section>
+
+  <!-- Sección Nosotros con Carousel -->
+  <!-- ======================================== -->
+
+  <!-- Version de escritorio -->
+  <div class="container d-none d-lg-block">
+    <h1 class="mx-3">Nosotros</h1>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item mb-5 mt-4 active ">
+              <div class="row">
+                <!-- Barbero 1 -->
+                <div class="col-md-4">
+                  <div class="card mx-auto" style="width: 18rem;">
+                    <!-- Contenido de la tarjeta -->
+                    <img src="./images/barbero_1.jpeg" class="card-img-top" alt="Nombre del Barbero 1">
+                    <div class="card-body">
+                      <h5 class="card-title">Nombre del Barbero 1</h5>
+                      <p class="card-text">Descripción o detalles sobre el barbero 1.</p>
+                      <div class="social-icons">
+                        <a href="URL_DE_INSTAGRAM_1" target="_blank" class="btn btn-social">
+                          <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="URL_DE_TWITTER_1" target="_blank" class="btn btn-social">
+                          <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="URL_DE_TIKTOK_1" target="_blank" class="btn btn-social">
+                          <i class="fab fa-tiktok"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Barbero 2 -->
+                <div class="col-md-4">
+                  <div class="card mx-auto" style="width: 18rem;">
+                    <!-- Contenido de la tarjeta -->
+                    <img src="./images/barbero_2.jpeg" class="card-img-top" alt="Nombre del Barbero 2">
+                    <div class="card-body">
+                      <h5 class="card-title">Nombre del Barbero 2</h5>
+                      <p class="card-text">Descripción o detalles sobre el barbero 2.</p>
+                      <div class="social-icons">
+                        <a href="URL_DE_INSTAGRAM_1" target="_blank" class="btn btn-social">
+                          <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="URL_DE_TWITTER_1" target="_blank" class="btn btn-social">
+                          <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="URL_DE_TIKTOK_1" target="_blank" class="btn btn-social">
+                          <i class="fab fa-tiktok"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Barbero 3 -->
+                <div class="col-md-4">
+                  <div class="card mx-auto" style="width: 18rem;">
+                    <!-- Contenido de la tarjeta -->
+                    <img src="./images/barbero_3.jpeg" class="card-img-top" alt="Nombre del Barbero 1">
+                    <div class="card-body">
+                      <h5 class="card-title">Nombre del Barbero 3</h5>
+                      <p class="card-text">Descripción o detalles sobre el barbero 3.</p>
+                      <div class="social-icons">
+                        <a href="URL_DE_INSTAGRAM_1" target="_blank" class="btn btn-social">
+                          <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="URL_DE_TWITTER_1" target="_blank" class="btn btn-social">
+                          <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="URL_DE_TIKTOK_1" target="_blank" class="btn btn-social">
+                          <i class="fab fa-tiktok"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item mb-5 mt-4">
+              <div class="row">
+                <!-- Barbero 4 -->
+                <div class="col-md-4">
+                  <div class="card mx-auto" style="width: 18rem;">
+                    <!-- Contenido de la tarjeta -->
+                    <img src="./images/barbero_2.jpeg" class="card-img-top" alt="Nombre del Barbero 2">
+                    <div class="card-body">
+                      <h5 class="card-title">Nombre del Barbero 2</h5>
+                      <p class="card-text">Descripción o detalles sobre el barbero 2.</p>
+                      <div class="social-icons">
+                        <a href="URL_DE_INSTAGRAM_1" target="_blank" class="btn btn-social">
+                          <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="URL_DE_TWITTER_1" target="_blank" class="btn btn-social">
+                          <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="URL_DE_TIKTOK_1" target="_blank" class="btn btn-social">
+                          <i class="fab fa-tiktok"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Barbero 5 -->
+                <div class="col-md-4">
+                  <div class="card mx-auto" style="width: 18rem;">
+                    <!-- Contenido de la tarjeta -->
+                    <img src="./images/barbero_3.jpeg" class="card-img-top" alt="Nombre del Barbero 2">
+                    <div class="card-body">
+                      <h5 class="card-title">Nombre del Barbero 3</h5>
+                      <p class="card-text">Descripción o detalles sobre el barbero 2.</p>
+                      <div class="social-icons">
+                        <a href="URL_DE_INSTAGRAM_1" target="_blank" class="btn btn-social">
+                          <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="URL_DE_TWITTER_1" target="_blank" class="btn btn-social">
+                          <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="URL_DE_TIKTOK_1" target="_blank" class="btn btn-social">
+                          <i class="fab fa-tiktok"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Carousel para tamaños medianos -->
+  <div class="container d-none d-md-block d-lg-none">
+    <h1 class="mx-3">Nosotros</h1>
+    <div id="carouselExampleIndicatorsMedium" class="carousel slide" data-bs-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-bs-target="#carouselExampleIndicatorsMedium" data-bs-slide-to="0" class="active"></li>
+        <li data-bs-target="#carouselExampleIndicatorsMedium" data-bs-slide-to="1"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item mb-5 mt-4 active">
+          <div class="row">
+            <!-- Barbero 1 -->
+            <div class="col-md-4">
+              <!-- Contenido de la tarjeta -->
+              <div class="card" style="width: 14rem;">
+                <img src="./images/barbero_2.jpeg" class="card-img-top" alt="Nombre del Barbero 2">
+                <div class="card-body">
+                  <h5 class="card-title">Nombre del Barbero 3</h5>
+                  <p class="card-text">Descripción o detalles sobre el barbero 2.</p>
+                  <div class="social-icons">
+                    <a href="URL_DE_INSTAGRAM_1" target="_blank" class="btn btn-social">
+                      <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="URL_DE_TWITTER_1" target="_blank" class="btn btn-social">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="URL_DE_TIKTOK_1" target="_blank" class="btn btn-social">
+                      <i class="fab fa-tiktok"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- Barbero 2 -->
+            <div class="col-md-4">
+              <!-- Contenido de la tarjeta -->
+              <div class="card" style="width: 14rem;">
+                <img src="./images/barbero_3.jpeg" class="card-img-top" alt="Nombre del Barbero 2">
+                <div class="card-body">
+                  <h5 class="card-title">Nombre del Barbero 3</h5>
+                  <p class="card-text">Descripción o detalles sobre el barbero 2.</p>
+                  <div class="social-icons">
+                    <a href="URL_DE_INSTAGRAM_1" target="_blank" class="btn btn-social">
+                      <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="URL_DE_TWITTER_1" target="_blank" class="btn btn-social">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="URL_DE_TIKTOK_1" target="_blank" class="btn btn-social">
+                      <i class="fab fa-tiktok"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- Barbero 3 -->
+            <div class="col-md-4">
+              <!-- Contenido de la tarjeta -->
+              <div class="card" style="width: 14rem;">
+                <img src="./images/barbero_1.jpeg" class="card-img-top" alt="Nombre del Barbero 2">
+                <div class="card-body">
+                  <h5 class="card-title">Nombre del Barbero 3</h5>
+                  <p class="card-text">Descripción o detalles sobre el barbero 2.</p>
+                  <div class="social-icons">
+                    <a href="URL_DE_INSTAGRAM_1" target="_blank" class="btn btn-social">
+                      <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="URL_DE_TWITTER_1" target="_blank" class="btn btn-social">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="URL_DE_TIKTOK_1" target="_blank" class="btn btn-social">
+                      <i class="fab fa-tiktok"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item mb-5 mt-4">
+          <div class="row">
+            <!-- Barbero 4 -->
+            <div class="col-md-4">
+              <!-- Contenido de la tarjeta -->
+              <div class="card" style="width: 14rem;">
+                <img src="./images/barbero_2.jpeg" class="card-img-top" alt="Nombre del Barbero 2">
+                <div class="card-body">
+                  <h5 class="card-title">Nombre del Barbero 3</h5>
+                  <p class="card-text">Descripción o detalles sobre el barbero 2.</p>
+                  <div class="social-icons">
+                    <a href="URL_DE_INSTAGRAM_1" target="_blank" class="btn btn-social">
+                      <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="URL_DE_TWITTER_1" target="_blank" class="btn btn-social">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="URL_DE_TIKTOK_1" target="_blank" class="btn btn-social">
+                      <i class="fab fa-tiktok"></i>
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <!-- Barbero 5 -->
+            <div class="col-md-4">
+              <!-- Contenido de la tarjeta -->
+              <div class="card" style="width: 14rem;">
+                <img src="./images/barbero_3.jpeg" class="card-img-top" alt="Nombre del Barbero 2">
+                <div class="card-body">
+                  <h5 class="card-title">Nombre del Barbero 3</h5>
+                  <p class="card-text">Descripción o detalles sobre el barbero 2.</p>
+                  <div class="social-icons">
+                    <a href="URL_DE_INSTAGRAM_1" target="_blank" class="btn btn-social">
+                      <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="URL_DE_TWITTER_1" target="_blank" class="btn btn-social">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="URL_DE_TIKTOK_1" target="_blank" class="btn btn-social">
+                      <i class="fab fa-tiktok"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Versión de dispositivos móviles -->
+  <div class="container d-md-none" style="display: flex; flex-wrap: wrap; flex-direction: column; align-content: center;">
+    <h1 style="margin-right: auto;" class="ml-3 hidden-on-mobile">Nosotros</h1>
+    <div class="container d-md-none" style="display: flex; flex-wrap: wrap; flex-direction: column; align-content: center;">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8"><!-- Tamaño del carousel en dispositivos móviles -->
+        <div id="carouselExampleIndicatorsMobile" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <!-- Barbero 1 -->
+            <div class="carousel-item active">
+              <div class="col-md-4 mx-auto"><!-- Ajuste para centrar las tarjetas en dispositivos móviles -->
+                <div class="card" style="width: 18rem;">
+                  <img src="./images/barbero_1.jpeg" class="card-img-top" alt="Barbero 1">
+                  <div class="card-body">
+                    <h5 class="card-title">Nombre del Barbero 1</h5>
+                    <p class="card-text">Descripción 1</p>
+                    <div class="social-icons">
+                      <!-- Agrega aquí los enlaces a las redes sociales para el barbero 1 -->
+                      <a href="URL_DE_INSTAGRAM_1" target="_blank" class="btn btn-social">
+                        <i class="fab fa-instagram"></i>
+                      </a>
+                      <a href="URL_DE_TWITTER_1" target="_blank" class="btn btn-social">
+                        <i class="fab fa-twitter"></i>
+                      </a>
+                      <a href="URL_DE_TIKTOK_1" target="_blank" class="btn btn-social">
+                        <i class="fab fa-tiktok"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Barbero 2 -->
+            <div class="carousel-item">
+              <div class="col-md-4 mx-auto">
+                <div class="card" style="width: 18rem;">
+                  <img src="./images/barbero_2.jpeg" class="card-img-top" alt="Barbero 2">
+                  <div class="card-body">
+                    <h5 class="card-title">Nombre del Barbero 2</h5>
+                    <p class="card-text">Descripción 2</p>
+                    <div class="social-icons">
+                      <!-- Agrega aquí los enlaces a las redes sociales para el barbero 2 -->
+                      <a href="URL_DE_INSTAGRAM_1" target="_blank" class="btn btn-social">
+                        <i class="fab fa-instagram"></i>
+                      </a>
+                      <a href="URL_DE_TWITTER_1" target="_blank" class="btn btn-social">
+                        <i class="fab fa-twitter"></i>
+                      </a>
+                      <a href="URL_DE_TIKTOK_1" target="_blank" class="btn btn-social">
+                        <i class="fab fa-tiktok"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Barbero 3 -->
+            <div class="carousel-item">
+              <div class="col-md-4 mx-auto">
+                <div class="card" style="width: 18rem;">
+                  <img src="./images/barbero_3.jpeg" class="card-img-top" alt="Barbero 3">
+                  <div class="card-body">
+                    <h5 class="card-title">Nombre del Barbero 3</h5>
+                    <p class="card-text">Descripción 3</p>
+                    <div class="social-icons">
+                      <!-- Agrega aquí los enlaces a las redes sociales para el barbero 3 -->
+                      <a href="URL_DE_INSTAGRAM_1" target="_blank" class="btn btn-social">
+                        <i class="fab fa-instagram"></i>
+                      </a>
+                      <a href="URL_DE_TWITTER_1" target="_blank" class="btn btn-social">
+                        <i class="fab fa-twitter"></i>
+                      </a>
+                      <a href="URL_DE_TIKTOK_1" target="_blank" class="btn btn-social">
+                        <i class="fab fa-tiktok"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Barbero 4 -->
+            <div class="carousel-item">
+              <div class="col-md-4 mx-auto">
+                <div class="card" style="width: 18rem;">
+                  <img src="./images/barbero_1.jpeg" class="card-img-top" alt="Barbero 4">
+                  <div class="card-body">
+                    <h5 class="card-title">Nombre del Barbero 4</h5>
+                    <p class="card-text">Descripción 4</p>
+                    <div class="social-icons">
+                      <!-- Agrega aquí los enlaces a las redes sociales para el barbero 4 -->
+                      <a href="URL_DE_INSTAGRAM_1" target="_blank" class="btn btn-social">
+                        <i class="fab fa-instagram"></i>
+                      </a>
+                      <a href="URL_DE_TWITTER_1" target="_blank" class="btn btn-social">
+                        <i class="fab fa-twitter"></i>
+                      </a>
+                      <a href="URL_DE_TIKTOK_1" target="_blank" class="btn btn-social">
+                        <i class="fab fa-tiktok"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Barbero 5 -->
+            <div class="carousel-item">
+              <div class="col-md-4 mx-auto">
+                <div class="card" style="width: 18rem;">
+                  <img src="./images/barbero_2.jpeg" class="card-img-top" alt="Barbero 5">
+                  <div class="card-body">
+                    <h5 class="card-title">Nombre del Barbero 5</h5>
+                    <p class="card-text">Descripción 5</p>
+                    <div class="social-icons">
+                      <!-- Agrega aquí los enlaces a las redes sociales para el barbero 5 -->
+                      <a href="URL_DE_INSTAGRAM_1" target="_blank" class="btn btn-social">
+                        <i class="fab fa-instagram"></i>
+                      </a>
+                      <a href="URL_DE_TWITTER_1" target="_blank" class="btn btn-social">
+                        <i class="fab fa-twitter"></i>
+                      </a>
+                      <a href="URL_DE_TIKTOK_1" target="_blank" class="btn btn-social">
+                        <i class="fab fa-tiktok"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Puedes replicar esta estructura para más barberos -->
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicatorsMobile"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicatorsMobile"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+
+  <!-- Sección de Galería -->
+  <div id="galeria" class="container mt-3">
+    <h1>Galería</h1>
+
+    <!-- Álbum 1 -->
+    <div class="album py-5 bg-light">
+      <div class="container">
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          <!-- Imágenes dinámicas -->
+          <div class="col">
+            <div class="card shadow-sm">
+              <img src="https://source.unsplash.com/600x400/?barbershop" alt="" class="bd-placeholder-img card-img-top">
+            </div>
+          </div>
+          <div class="col">
+            <div class="card shadow-sm">
+              <img src="https://source.unsplash.com/600x400/?barber" alt="" class="bd-placeholder-img card-img-top">
+            </div>
+          </div>
+          <div class="col">
+            <div class="card shadow-sm">
+              <img src="https://source.unsplash.com/600x400/?barbershops" alt=""
+                class="bd-placeholder-img card-img-top">
+            </div>
+          </div>
+          <div class="col">
+            <div class="card shadow-sm">
+              <img src="https://source.unsplash.com/600x400/?barbers" alt="" class="bd-placeholder-img card-img-top">
+            </div>
+          </div>
+          <div class="col">
+            <div class="card shadow-sm">
+              <img src="https://source.unsplash.com/600x400/?barbershop" alt="" class="bd-placeholder-img card-img-top">
+            </div>
+          </div>
+          <div class="col">
+            <div class="card shadow-sm">
+              <img src="https://source.unsplash.com/600x400/?barbershop" alt="" class="bd-placeholder-img card-img-top">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- Fin Álbum 1 -->
+
+    <!-- Puedes agregar más álbumes según sea necesario -->
+
+  </div>
+
+  <!-- Más secciones según sea necesario -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <script src="app.js"></script> <!-- Enlace al archivo JavaScript externo -->
+</body>
+
+</html>
